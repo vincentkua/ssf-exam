@@ -26,16 +26,18 @@ public class PurchaseOrderController {
     @Autowired
     QuotationService quotationSvc;
 
-    // for testing controller
-    // @GetMapping(path = "/test")
-    // public String testController(Model model) {
-    // model.addAttribute("test", "attribute is working...");
-    // return "test";
-    // }
-
-    // landing page
+    // landing page , new page and reset all...
     @GetMapping(path = { "/", "/index.html" })
     public String getview1(Model model) {
+        model.addAttribute("stock", new Stock());
+        cartRepo.clearstock();
+        List<Stock> cart = new LinkedList<Stock>();
+        model.addAttribute("cart", cart);
+        return "view1";
+    }
+
+    @GetMapping(path = { "/cart" })
+    public String getviewsession(Model model) {
 
         model.addAttribute("stock", new Stock());
 
@@ -79,14 +81,14 @@ public class PurchaseOrderController {
     public String addressinput(Model model) {
 
         if (cartRepo.checkcartsize() == 0) {
-            return "redirect:/";
+            return "redirect:/cart";
         } else {
             model.addAttribute("address", new Address());
             return "view2";
         }
     }
 
-    @PostMapping(path = "/shippingaddress")
+    @PostMapping(path = "/invoice")
     public String postaddress(@Valid Address address, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
@@ -107,14 +109,15 @@ public class PurchaseOrderController {
             Float quantity = Float.parseFloat(cartMap.get(i).getQuantity().toString()) ;
             Float itemprice = quotation.getQuotation(item);
             total = total + (quantity*itemprice);
-
-            System.out.println(total);  
         }
 
-        // go to page3
         model.addAttribute("invoiceid", quotation.getQuoteId());
         model.addAttribute("address", address);
         model.addAttribute("total", String.format("%.2f",total));
+
+        System.out.println("Invoice Generated #################");
+        cartRepo.clearstock();
+        System.out.println("Customer Cart Cleared #################");
 
         return "view3";
     }

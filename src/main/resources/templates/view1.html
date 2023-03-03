@@ -15,7 +15,7 @@
     <form action="/cart" method="post" data-th-object="${stock}">
       <table>
         <tr>
-          <td>Item:</td>
+          <td style="width: 70px;">Item:</td>
           <td>
             <select name="item" data-th-field="*{itemname}">
               <option value="apple">Apple</option>
@@ -57,7 +57,7 @@
       <table border="1" style="margin-top: 2vh; margin-bottom: 2vh; border-collapse: collapse;" th:if="${!cart.isEmpty()}">
         <thead>
           <tr>
-            <th style="width: 80px;">Item</th>
+            <th style="width: 120px;">Item</th>
             <th style="width: 120px;">Quantity</th>
           </tr>
         </thead>

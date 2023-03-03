@@ -4,40 +4,57 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>View 2</title>
   </head>
   <body>
-    <h3>Shipping Address</h3>
+    <h1>Shipping Address</h1>
 
     <div>
-      <form action="/shippingaddress" method="post" data-th-object="${address}">
-        <div>
-          <label for="name">Name : </label>
-          <input type="text" name="name" id="name" data-th-field="*{name}" />
-          <div
-            data-th-if="${#fields.hasErrors('name')}"
-            data-th-errors="*{name}"
-            style="color: red"
-          ></div>
-        </div>
-        <div>
-          <label for="address">Address : </label>
-          <input
-            type="text"
-            name="address"
-            id="address"
-            data-th-field="*{address}"
-          />
-          <div
-            data-th-if="${#fields.hasErrors('address')}"
-            data-th-errors="*{address}"
-            style="color: red"
-          ></div>
-        </div>
+      <form action="/invoice" method="post" data-th-object="${address}">
+        <table>
+          <tr>
+            <td style="width: 70px;"><label for="name">Name : </label></td>
+            <td>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                data-th-field="*{name}"
+              />
+            </td>
+            <td>
+              <div
+                data-th-if="${#fields.hasErrors('name')}"
+                data-th-errors="*{name}"
+                style="color: red"
+              ></div>
+            </td>
+          </tr>
+          <tr>
+            <td><label for="address">Address : </label></td>
+            <td>
+              <input
+                type="text"
+                name="address"
+                id="address"
+                data-th-field="*{address}"
+              />
+            </td>
+            <td>
+              <div
+                data-th-if="${#fields.hasErrors('address')}"
+                data-th-errors="*{address}"
+                style="color: red"
+              ></div>
+            </td>
+          </tr>
+        </table>
 
         <br />
         <div>
-          <button type="submit" formaction="/" formmethod="get">Back</button>
+          <button type="submit" formaction="/cart" formmethod="get">
+            Back
+          </button>
           <button type="submit">Checkout</button>
         </div>
       </form>

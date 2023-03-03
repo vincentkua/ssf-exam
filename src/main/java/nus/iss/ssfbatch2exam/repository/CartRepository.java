@@ -43,4 +43,8 @@ public class CartRepository {
         return cartmap.size();  
     }
 
+    public void clearstock(){
+        cartmap.clear();
+    }
+
 }
